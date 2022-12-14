@@ -10,7 +10,6 @@ import {
 import { VenueService } from './venue.service';
 import { CreateVenueDto } from './dto/create-venue.dto';
 import { UpdateVenueDto } from './dto/update-venue.dto';
-
 @Controller('venue')
 export class VenueController {
   constructor(private readonly venueService: VenueService) {}
@@ -31,12 +30,15 @@ export class VenueController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateVenueDto: UpdateVenueDto) {
-    return this.venueService.update(+id, updateVenueDto);
+  async update(@Param('id') id: string, @Body() updateVenueDto: UpdateVenueDto) {
+    await this.venueService.update(+id, updateVenueDto);
+    return this.venueService.findOne(+id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.venueService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const venue = await this.venueService.findOne(+id);
+    await this.venueService.remove(+id);
+    return venue;
   }
 }

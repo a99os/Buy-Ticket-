@@ -10,7 +10,6 @@ import {
 import { TicketService } from './ticket.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
-
 @Controller('ticket')
 export class TicketController {
   constructor(private readonly ticketService: TicketService) {}
@@ -31,12 +30,15 @@ export class TicketController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateTicketDto: UpdateTicketDto) {
-    return this.ticketService.update(+id, updateTicketDto);
+  async update(@Param('id') id: string, @Body() updateTicketDto: UpdateTicketDto) {
+    await this.ticketService.update(+id, updateTicketDto);
+    return this.ticketService.findOne(+id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ticketService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const ticket = await this.ticketService.findOne(+id);
+    await this.ticketService.remove(+id);
+    return ticket;
   }
 }

@@ -10,36 +10,38 @@ import {
 import { VenueTypeService } from './venue_type.service';
 import { CreateVenueTypeDto } from './dto/create-venue_type.dto';
 import { UpdateVenueTypeDto } from './dto/update-venue_type.dto';
-
-@Controller('venue-type')
+@Controller('venue_type')
 export class VenueTypeController {
-  constructor(private readonly venueTypeService: VenueTypeService) {}
+  constructor(private readonly venue_typeService: VenueTypeService) {}
 
   @Post()
-  create(@Body() createVenueTypeDto: CreateVenueTypeDto) {
-    return this.venueTypeService.create(createVenueTypeDto);
+  create(@Body() createVenue_TypeDto: CreateVenueTypeDto) {
+    return this.venue_typeService.create(createVenue_TypeDto);
   }
 
   @Get()
   findAll() {
-    return this.venueTypeService.findAll();
+    return this.venue_typeService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.venueTypeService.findOne(+id);
+    return this.venue_typeService.findOne(+id);
   }
 
   @Put(':id')
-  update(
+  async update(
     @Param('id') id: string,
-    @Body() updateVenueTypeDto: UpdateVenueTypeDto,
+    @Body() updateVenue_TypeDto: UpdateVenueTypeDto,
   ) {
-    return this.venueTypeService.update(+id, updateVenueTypeDto);
+    await this.venue_typeService.update(+id, updateVenue_TypeDto);
+    return this.venue_typeService.findOne(+id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.venueTypeService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const venue_type = await this.venue_typeService.findOne(+id);
+    await this.venue_typeService.remove(+id);
+    return venue_type;
   }
 }

@@ -1,26 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { CreateSeatTypeDto } from './dto/create-seat-type.dto';
 import { UpdateSeatTypeDto } from './dto/update-seat-type.dto';
-
+import { Seat_Type } from './model/seat-type.model';
 @Injectable()
 export class SeatTypeService {
-  create(createSeatTypeDto: CreateSeatTypeDto) {
-    return 'This action adds a new seatType';
+  constructor(@InjectModel(Seat_Type) private seat_typeRepository: typeof Seat_Type) {}
+  create(createSeat_TypeDto: CreateSeatTypeDto) {
+    return this.seat_typeRepository.create(createSeat_TypeDto);
   }
 
   findAll() {
-    return `This action returns all seatType`;
+    return this.seat_typeRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} seatType`;
+  async findOne(id: number) {
+    const seat_type = await this.seat_typeRepository.findOne({ where: { id } });
+    if (!seat_type) {
+      throw new HttpException('Bunday seat_type topilmadi', HttpStatus.NOT_FOUND);
+    }
+    return seat_type;
   }
 
-  update(id: number, updateSeatTypeDto: UpdateSeatTypeDto) {
-    return `This action updates a #${id} seatType`;
+  async update(id: number, updateSeat_TypeDto: UpdateSeatTypeDto) {
+    const seat_type = await this.seat_typeRepository.findOne({ where: { id } });
+    if (!seat_type) {
+      throw new HttpException('Bunday seat_type topilmadi', HttpStatus.NOT_FOUND);
+    }
+    return this.seat_typeRepository.update(updateSeat_TypeDto, { where: { id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} seatType`;
+  async remove(id: number) {
+    const seat_type = await this.seat_typeRepository.findOne({ where: { id } });
+    if (!seat_type) {
+      throw new HttpException('Bunday seat_type topilmadi', HttpStatus.NOT_FOUND);
+    }
+    return this.seat_typeRepository.destroy({ where: { id } });
   }
 }

@@ -1,26 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { CreateSeatDto } from './dto/create-seat.dto';
 import { UpdateSeatDto } from './dto/update-seat.dto';
-
+import { Seat } from './model/seat.model';
 @Injectable()
 export class SeatService {
+  constructor(@InjectModel(Seat) private seatRepository: typeof Seat) {}
   create(createSeatDto: CreateSeatDto) {
-    return 'This action adds a new seat';
+    return this.seatRepository.create(createSeatDto);
   }
 
   findAll() {
-    return `This action returns all seat`;
+    return this.seatRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} seat`;
+  async findOne(id: number) {
+    const seat = await this.seatRepository.findOne({ where: { id } });
+    if (!seat) {
+      throw new HttpException('Bunday seat topilmadi', HttpStatus.NOT_FOUND);
+    }
+    return seat;
   }
 
-  update(id: number, updateSeatDto: UpdateSeatDto) {
-    return `This action updates a #${id} seat`;
+  async update(id: number, updateSeatDto: UpdateSeatDto) {
+    const seat = await this.seatRepository.findOne({ where: { id } });
+    if (!seat) {
+      throw new HttpException('Bunday seat topilmadi', HttpStatus.NOT_FOUND);
+    }
+    return this.seatRepository.update(updateSeatDto, { where: { id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} seat`;
+  async remove(id: number) {
+    const seat = await this.seatRepository.findOne({ where: { id } });
+    if (!seat) {
+      throw new HttpException('Bunday seat topilmadi', HttpStatus.NOT_FOUND);
+    }
+    return this.seatRepository.destroy({ where: { id } });
   }
 }

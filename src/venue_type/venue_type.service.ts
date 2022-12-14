@@ -1,26 +1,59 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { CreateVenueTypeDto } from './dto/create-venue_type.dto';
 import { UpdateVenueTypeDto } from './dto/update-venue_type.dto';
-
+import { Venue_Type } from './model/venue_type.model';
 @Injectable()
 export class VenueTypeService {
-  create(createVenueTypeDto: CreateVenueTypeDto) {
-    return 'This action adds a new venueType';
+  constructor(
+    @InjectModel(Venue_Type) private venue_typeRepository: typeof Venue_Type,
+  ) {}
+  create(createVenue_TypeDto: CreateVenueTypeDto) {
+    return this.venue_typeRepository.create(createVenue_TypeDto);
   }
 
   findAll() {
-    return `This action returns all venueType`;
+    return this.venue_typeRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} venueType`;
+  async findOne(id: number) {
+    const venue_type = await this.venue_typeRepository.findOne({
+      where: { id },
+    });
+    if (!venue_type) {
+      throw new HttpException(
+        'Bunday venue_type topilmadi',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return venue_type;
   }
 
-  update(id: number, updateVenueTypeDto: UpdateVenueTypeDto) {
-    return `This action updates a #${id} venueType`;
+  async update(id: number, updateVenue_TypeDto: UpdateVenueTypeDto) {
+    const venue_type = await this.venue_typeRepository.findOne({
+      where: { id },
+    });
+    if (!venue_type) {
+      throw new HttpException(
+        'Bunday venue_type topilmadi',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return this.venue_typeRepository.update(updateVenue_TypeDto, {
+      where: { id },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} venueType`;
+  async remove(id: number) {
+    const venue_type = await this.venue_typeRepository.findOne({
+      where: { id },
+    });
+    if (!venue_type) {
+      throw new HttpException(
+        'Bunday venue_type topilmadi',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return this.venue_typeRepository.destroy({ where: { id } });
   }
 }

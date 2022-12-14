@@ -1,26 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
-
+import { Ticket } from './model/ticket.model';
 @Injectable()
 export class TicketService {
+  constructor(@InjectModel(Ticket) private ticketRepository: typeof Ticket) {}
   create(createTicketDto: CreateTicketDto) {
-    return 'This action adds a new ticket';
+    return this.ticketRepository.create(createTicketDto);
   }
 
   findAll() {
-    return `This action returns all ticket`;
+    return this.ticketRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} ticket`;
+  async findOne(id: number) {
+    const ticket = await this.ticketRepository.findOne({ where: { id } });
+    if (!ticket) {
+      throw new HttpException('Bunday ticket topilmadi', HttpStatus.NOT_FOUND);
+    }
+    return ticket;
   }
 
-  update(id: number, updateTicketDto: UpdateTicketDto) {
-    return `This action updates a #${id} ticket`;
+  async update(id: number, updateTicketDto: UpdateTicketDto) {
+    const ticket = await this.ticketRepository.findOne({ where: { id } });
+    if (!ticket) {
+      throw new HttpException('Bunday ticket topilmadi', HttpStatus.NOT_FOUND);
+    }
+    return this.ticketRepository.update(updateTicketDto, { where: { id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} ticket`;
+  async remove(id: number) {
+    const ticket = await this.ticketRepository.findOne({ where: { id } });
+    if (!ticket) {
+      throw new HttpException('Bunday ticket topilmadi', HttpStatus.NOT_FOUND);
+    }
+    return this.ticketRepository.destroy({ where: { id } });
   }
 }

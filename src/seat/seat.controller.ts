@@ -10,7 +10,6 @@ import {
 import { SeatService } from './seat.service';
 import { CreateSeatDto } from './dto/create-seat.dto';
 import { UpdateSeatDto } from './dto/update-seat.dto';
-
 @Controller('seat')
 export class SeatController {
   constructor(private readonly seatService: SeatService) {}
@@ -31,12 +30,15 @@ export class SeatController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateSeatDto: UpdateSeatDto) {
-    return this.seatService.update(+id, updateSeatDto);
+  async update(@Param('id') id: string, @Body() updateSeatDto: UpdateSeatDto) {
+    await this.seatService.update(+id, updateSeatDto);
+    return this.seatService.findOne(+id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.seatService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const seat = await this.seatService.findOne(+id);
+    await this.seatService.remove(+id);
+    return seat;
   }
 }

@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { VenueTypeService } from './venue_type.service';
 import { CreateVenueTypeDto } from './dto/create-venue_type.dto';
 import { UpdateVenueTypeDto } from './dto/update-venue_type.dto';
@@ -22,8 +30,11 @@ export class VenueTypeController {
     return this.venueTypeService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVenueTypeDto: UpdateVenueTypeDto) {
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateVenueTypeDto: UpdateVenueTypeDto,
+  ) {
     return this.venueTypeService.update(+id, updateVenueTypeDto);
   }
 

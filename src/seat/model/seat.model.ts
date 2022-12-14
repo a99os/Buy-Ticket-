@@ -13,7 +13,7 @@ interface SeatAttr {
 @Table({ tableName: 'seat' })
 export class Seat extends Model<Seat, SeatAttr> {
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
     unique: true,
     primaryKey: true,
     autoIncrement: true,
@@ -21,23 +21,23 @@ export class Seat extends Model<Seat, SeatAttr> {
   id?: number;
 
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
   })
   sector: number;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
   })
   row_number: number;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
   })
   number: number;
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
   })
   venue_id: number;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
   })
   set_type_id: number;
   @Column({

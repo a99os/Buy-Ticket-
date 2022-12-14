@@ -15,7 +15,7 @@ interface CustomerAttr {
 @Table({ tableName: 'customer' })
 export class Customer extends Model<Customer, CustomerAttr> {
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
     unique: true,
     autoIncrement: true,
     primaryKey: true,
@@ -52,12 +52,12 @@ export class Customer extends Model<Customer, CustomerAttr> {
   })
   birth_date: Date;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
     defaultValue: 1,
   })
   gender: number;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
     defaultValue: 1,
   })
   lang_id: number;

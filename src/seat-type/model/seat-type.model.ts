@@ -8,7 +8,7 @@ interface SeatTypeAttr {
 @Table({ tableName: 'seat_type' })
 export class Seat_Type extends Model<Seat_Type, SeatTypeAttr> {
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
     unique: true,
     primaryKey: true,
     autoIncrement: true,

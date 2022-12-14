@@ -15,7 +15,7 @@ export class CreateBookingDto {
   readonly delivery_method_id: number;
   @IsNumber()
   @IsNotEmpty()
-  readonly discount_coupon_id: number;
+  readonly discount_cupon_id: number;
   @IsNumber()
   @IsNotEmpty()
   readonly status_id: number;

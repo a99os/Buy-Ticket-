@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { VenuePhotoService } from './venue_photo.service';
 import { CreateVenuePhotoDto } from './dto/create-venue_photo.dto';
 import { UpdateVenuePhotoDto } from './dto/update-venue_photo.dto';
@@ -22,8 +30,11 @@ export class VenuePhotoController {
     return this.venuePhotoService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVenuePhotoDto: UpdateVenuePhotoDto) {
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateVenuePhotoDto: UpdateVenuePhotoDto,
+  ) {
     return this.venuePhotoService.update(+id, updateVenuePhotoDto);
   }
 

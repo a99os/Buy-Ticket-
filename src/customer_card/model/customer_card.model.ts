@@ -14,7 +14,7 @@ interface CustCardAttr {
 @Table({ tableName: 'customer_card' })
 export class Customer_Card extends Model<Customer_Card, CustCardAttr> {
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
     unique: true,
     primaryKey: true,
     autoIncrement: true,
@@ -22,7 +22,7 @@ export class Customer_Card extends Model<Customer_Card, CustCardAttr> {
   id: number;
 
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
   })
   customer_id: number;
 

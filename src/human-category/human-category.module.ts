@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
+import { HumanCategoryController } from './human-category.controller';
 import { HumanCategoryService } from './human-category.service';
-import { HumanCategoryController } from 'human-category.controller';
 
 @Module({
   controllers: [HumanCategoryController],

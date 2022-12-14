@@ -17,7 +17,7 @@ interface CustAdressAttr {
 @Table({ tableName: 'customer_address' })
 export class Customer_Address extends Model<Customer_Address, CustAdressAttr> {
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
     unique: true,
     autoIncrement: true,
     primaryKey: true,
@@ -25,7 +25,7 @@ export class Customer_Address extends Model<Customer_Address, CustAdressAttr> {
   id: number;
 
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
   })
   customer_id: number;
 
@@ -35,15 +35,15 @@ export class Customer_Address extends Model<Customer_Address, CustAdressAttr> {
   name: string;
 
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
   })
   country_id: number;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
   })
   region_id: number;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
   })
   district_id: number;
   @Column({
@@ -55,7 +55,7 @@ export class Customer_Address extends Model<Customer_Address, CustAdressAttr> {
   })
   house: string;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
   })
   flat: number;
   @Column({

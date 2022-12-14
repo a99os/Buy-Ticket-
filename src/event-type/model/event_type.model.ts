@@ -9,7 +9,7 @@ interface EventTypeAttr {
 @Table({ tableName: 'event_type' })
 export class Event_Type extends Model<Event_Type, EventTypeAttr> {
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
     unique: true,
     primaryKey: true,
     autoIncrement: true,
@@ -24,7 +24,7 @@ export class Event_Type extends Model<Event_Type, EventTypeAttr> {
   name: string;
 
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
   })
   parent_event_type_id: number;
 }

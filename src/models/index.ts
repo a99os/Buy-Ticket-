@@ -9,6 +9,10 @@ import * as Event_Type from '../event-type/model/event_type.model';
 import * as Human_Category from '../human-category/model/human-category.model';
 import * as Seat from '../seat/model/seat.model';
 import * as Seat_Type from '../seat-type/model/seat-type.model';
+import * as Ticket from '../ticket/model/ticket.model';
+import * as Venue from '../venue/model/venude.model';
+import * as Venue_Photo from '../venue_photo/model/venue_photo.model';
+import * as Venue_Type from '../venue_type/model/venue_type.model';
 
 export {
   Seat_Type,
@@ -22,4 +26,8 @@ export {
   Event,
   Event_Type,
   Human_Category,
+  Ticket,
+  Venue,
+  Venue_Photo,
+  Venue_Type,
 };

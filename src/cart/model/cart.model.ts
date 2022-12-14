@@ -9,7 +9,7 @@ interface cartAttr {
 @Table({ tableName: 'cart' })
 export class Cart extends Model<Cart, cartAttr> {
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
     unique: true,
     primaryKey: true,
     autoIncrement: true,
@@ -17,22 +17,22 @@ export class Cart extends Model<Cart, cartAttr> {
   id: number;
 
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   ticket_id: number;
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   customer_id: number;
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.DATE,
     defaultValue: new Date(new Date().getTime() + 30 * 60000),
   })
   finishedAt: Date;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
     defaultValue: 1,
   })
   status_id: number;

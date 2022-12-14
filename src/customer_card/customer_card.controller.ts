@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CustomerCardService } from './customer_card.service';
 import { CreateCustomerCardDto } from './dto/create-customer_card.dto';
 import { UpdateCustomerCardDto } from './dto/update-customer_card.dto';
@@ -22,8 +30,11 @@ export class CustomerCardController {
     return this.customerCardService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCustomerCardDto: UpdateCustomerCardDto) {
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateCustomerCardDto: UpdateCustomerCardDto,
+  ) {
     return this.customerCardService.update(+id, updateCustomerCardDto);
   }
 

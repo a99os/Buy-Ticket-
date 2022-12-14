@@ -11,7 +11,7 @@ interface HumanCategoryAttr {
 @Table({ tableName: 'human_category' })
 export class Human_Category extends Model<Human_Category, HumanCategoryAttr> {
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
     unique: true,
     primaryKey: true,
     autoIncrement: true,
@@ -23,17 +23,17 @@ export class Human_Category extends Model<Human_Category, HumanCategoryAttr> {
   })
   name: string;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   start_age: number;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   finish_age: number;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   gender: number;

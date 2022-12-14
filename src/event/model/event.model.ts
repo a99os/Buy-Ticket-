@@ -19,7 +19,7 @@ interface EventAttr {
 @Table({ tableName: 'event' })
 export class Event extends Model<Event, EventAttr> {
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
     unique: true,
     primaryKey: true,
     autoIncrement: true,
@@ -56,19 +56,19 @@ export class Event extends Model<Event, EventAttr> {
   })
   info: string;
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
   })
   event_type_id: number;
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
   })
   human_category_id: number;
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
   })
   venue_id: number;
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
   })
   lang_id: number;
   @Column({

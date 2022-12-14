@@ -7,20 +7,20 @@ interface bookingAttr {
   payment_method_id: number;
   delivery_method_id: number;
   discount_cupon_id: number;
-  status_id: string;
+  status_id: number;
 }
 
 @Table({ tableName: 'booking' })
 export class Booking extends Model<Booking, bookingAttr> {
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
     unique: true,
     primaryKey: true,
     autoIncrement: true,
   })
   id: number;
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
   })
   card_id: number;
   @Column({
@@ -29,23 +29,22 @@ export class Booking extends Model<Booking, bookingAttr> {
   })
   finished: Date;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   payment_method_id: number;
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   delivery_method_id: number;
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   discount_cupon_id: number;
   @Column({
-    type: DataType.SMALLINT,
-    defaultValue: false,
+    type: DataType.INTEGER,
   })
   status_id: number;
 }

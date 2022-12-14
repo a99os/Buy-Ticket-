@@ -13,7 +13,7 @@ interface adminAttr {
 @Table({ tableName: 'admin' })
 export class Admin extends Model<Admin, adminAttr> {
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
     unique: true,
     primaryKey: true,
     autoIncrement: true,

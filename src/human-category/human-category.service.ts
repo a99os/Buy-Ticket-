@@ -1,26 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { CreateHumanCategoryDto } from './dto/create-human-category.dto';
 import { UpdateHumanCategoryDto } from './dto/update-human-category.dto';
-
+import { Human_Category } from './model/human-category.model';
 @Injectable()
 export class HumanCategoryService {
-  create(createHumanCategoryDto: CreateHumanCategoryDto) {
-    return 'This action adds a new humanCategory';
+  constructor(@InjectModel(Human_Category) private human_categoryRepository: typeof Human_Category) {}
+  create(createHuman_CategoryDto: CreateHumanCategoryDto) {
+    return this.human_categoryRepository.create(createHuman_CategoryDto);
   }
 
   findAll() {
-    return `This action returns all humanCategory`;
+    return this.human_categoryRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} humanCategory`;
+  async findOne(id: number) {
+    const human_category = await this.human_categoryRepository.findOne({ where: { id } });
+    if (!human_category) {
+      throw new HttpException('Bunday human_category topilmadi', HttpStatus.NOT_FOUND);
+    }
+    return human_category;
   }
 
-  update(id: number, updateHumanCategoryDto: UpdateHumanCategoryDto) {
-    return `This action updates a #${id} humanCategory`;
+  async update(id: number, updateHuman_CategoryDto: UpdateHumanCategoryDto) {
+    const human_category = await this.human_categoryRepository.findOne({ where: { id } });
+    if (!human_category) {
+      throw new HttpException('Bunday human_category topilmadi', HttpStatus.NOT_FOUND);
+    }
+    return this.human_categoryRepository.update(updateHuman_CategoryDto, { where: { id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} humanCategory`;
+  async remove(id: number) {
+    const human_category = await this.human_categoryRepository.findOne({ where: { id } });
+    if (!human_category) {
+      throw new HttpException('Bunday human_category topilmadi', HttpStatus.NOT_FOUND);
+    }
+    return this.human_categoryRepository.destroy({ where: { id } });
   }
 }

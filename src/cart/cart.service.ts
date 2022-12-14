@@ -3,12 +3,9 @@ import { InjectModel } from '@nestjs/sequelize';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { Cart } from './model/cart.model';
-
 @Injectable()
 export class CartService {
-  constructor(
-    @InjectModel(Cart) private cartRepository: typeof Cart,
-  ) {}
+  constructor(@InjectModel(Cart) private cartRepository: typeof Cart) {}
   create(createCartDto: CreateCartDto) {
     return this.cartRepository.create(createCartDto);
   }
@@ -36,7 +33,6 @@ export class CartService {
   async remove(id: number) {
     const cart = await this.cartRepository.findOne({ where: { id } });
     if (!cart) {
-      console.log("salom");
       throw new HttpException('Bunday cart topilmadi', HttpStatus.NOT_FOUND);
     }
     return this.cartRepository.destroy({ where: { id } });

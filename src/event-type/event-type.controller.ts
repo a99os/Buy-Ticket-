@@ -10,36 +10,38 @@ import {
 import { EventTypeService } from './event-type.service';
 import { CreateEventTypeDto } from './dto/create-event-type.dto';
 import { UpdateEventTypeDto } from './dto/update-event-type.dto';
-
-@Controller('event-type')
+@Controller('event_type')
 export class EventTypeController {
-  constructor(private readonly eventTypeService: EventTypeService) {}
+  constructor(private readonly event_typeService: EventTypeService) {}
 
   @Post()
-  create(@Body() createEventTypeDto: CreateEventTypeDto) {
-    return this.eventTypeService.create(createEventTypeDto);
+  create(@Body() createEvent_TypeDto: CreateEventTypeDto) {
+    return this.event_typeService.create(createEvent_TypeDto);
   }
 
   @Get()
   findAll() {
-    return this.eventTypeService.findAll();
+    return this.event_typeService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.eventTypeService.findOne(+id);
+    return this.event_typeService.findOne(+id);
   }
 
   @Put(':id')
-  update(
+  async update(
     @Param('id') id: string,
-    @Body() updateEventTypeDto: UpdateEventTypeDto,
+    @Body() updateEvent_TypeDto: UpdateEventTypeDto,
   ) {
-    return this.eventTypeService.update(+id, updateEventTypeDto);
+    await this.event_typeService.update(+id, updateEvent_TypeDto);
+    return this.event_typeService.findOne(+id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.eventTypeService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const event_type = await this.event_typeService.findOne(+id);
+    await this.event_typeService.remove(+id);
+    return event_type;
   }
 }

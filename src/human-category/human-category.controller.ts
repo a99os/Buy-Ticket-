@@ -7,39 +7,41 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { HumanCategoryService } from './human-category.service';
 import { CreateHumanCategoryDto } from './dto/create-human-category.dto';
 import { UpdateHumanCategoryDto } from './dto/update-human-category.dto';
-import { HumanCategoryService } from './human-category.service';
-
-@Controller('human-category')
+@Controller('human_category')
 export class HumanCategoryController {
-  constructor(private readonly humanCategoryService: HumanCategoryService) {}
+  constructor(private readonly human_categoryService: HumanCategoryService) {}
 
   @Post()
-  create(@Body() createHumanCategoryDto: CreateHumanCategoryDto) {
-    return this.humanCategoryService.create(createHumanCategoryDto);
+  create(@Body() createHuman_CategoryDto: CreateHumanCategoryDto) {
+    return this.human_categoryService.create(createHuman_CategoryDto);
   }
 
   @Get()
   findAll() {
-    return this.humanCategoryService.findAll();
+    return this.human_categoryService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.humanCategoryService.findOne(+id);
+    return this.human_categoryService.findOne(+id);
   }
 
   @Put(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateHumanCategoryDto: UpdateHumanCategoryDto,
   ) {
-    return this.humanCategoryService.update(+id, updateHumanCategoryDto);
+    await this.human_categoryService.update(+id, updateHumanCategoryDto);
+    return this.human_categoryService.findOne(+id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.humanCategoryService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const human_category = await this.human_categoryService.findOne(+id);
+    await this.human_categoryService.remove(+id);
+    return human_category;
   }
 }

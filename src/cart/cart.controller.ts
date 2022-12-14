@@ -10,7 +10,6 @@ import {
 import { CartService } from './cart.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
-
 @Controller('cart')
 export class CartController {
   constructor(private readonly cartService: CartService) {}
@@ -31,10 +30,7 @@ export class CartController {
   }
 
   @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateCartDto: UpdateCartDto,
-  ) {
+  async update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
     await this.cartService.update(+id, updateCartDto);
     return this.cartService.findOne(+id);
   }

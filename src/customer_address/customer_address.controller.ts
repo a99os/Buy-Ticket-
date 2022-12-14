@@ -8,40 +8,43 @@ import {
   Delete,
 } from '@nestjs/common';
 import { CustomerAddressService } from './customer_address.service';
-import { CreateCustomerAddressDto } from './dto/create-customer_address.dto';
-import { UpdateCustomerAddressDto } from './dto/update-customer_address.dto';
+import { CreateCustomer_AddressDto } from './dto/create-customer_address.dto';
+import { UpdateCustomer_AddressDto } from './dto/update-customer_address.dto';
 
-@Controller('customer-address')
-export class CustomerAddressController {
+@Controller('customer_address')
+export class Customer_AddressController {
   constructor(
-    private readonly customerAddressService: CustomerAddressService,
+    private readonly customer_addressService: CustomerAddressService,
   ) {}
 
   @Post()
-  create(@Body() createCustomerAddressDto: CreateCustomerAddressDto) {
-    return this.customerAddressService.create(createCustomerAddressDto);
+  create(@Body() createCustomer_AddressDto: CreateCustomer_AddressDto) {
+    return this.customer_addressService.create(createCustomer_AddressDto);
   }
 
   @Get()
   findAll() {
-    return this.customerAddressService.findAll();
+    return this.customer_addressService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.customerAddressService.findOne(+id);
+    return this.customer_addressService.findOne(+id);
   }
 
   @Put(':id')
-  update(
+  async update(
     @Param('id') id: string,
-    @Body() updateCustomerAddressDto: UpdateCustomerAddressDto,
+    @Body() updateCustomer_AddressDto: UpdateCustomer_AddressDto,
   ) {
-    return this.customerAddressService.update(+id, updateCustomerAddressDto);
+    await this.customer_addressService.update(+id, updateCustomer_AddressDto);
+    return this.customer_addressService.findOne(+id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.customerAddressService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const customer_address = await this.customer_addressService.findOne(+id);
+    await this.customer_addressService.remove(+id);
+    return customer_address;
   }
 }

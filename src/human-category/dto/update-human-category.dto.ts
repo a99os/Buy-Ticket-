@@ -1,4 +1,16 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateHumanCategoryDto } from './create-human-category.dto';
+import { IsOptional, IsNumber, IsString } from 'class-validator';
 
-export class UpdateHumanCategoryDto extends PartialType(CreateHumanCategoryDto) {}
+export class UpdateHumanCategoryDto {
+  @IsOptional()
+  @IsString()
+  readonly name: string;
+  @IsOptional()
+  @IsNumber()
+  readonly start_age: number;
+  @IsOptional()
+  @IsNumber()
+  readonly finish_age: number;
+  @IsOptional()
+  @IsNumber()
+  readonly gender: number;
+}

@@ -1,26 +1,65 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCustomerAddressDto } from './dto/create-customer_address.dto';
-import { UpdateCustomerAddressDto } from './dto/update-customer_address.dto';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { CreateCustomer_AddressDto } from './dto/create-customer_address.dto';
+import { UpdateCustomer_AddressDto } from './dto/update-customer_address.dto';
+import { Customer_Address } from './model/customer_address.model';
 
 @Injectable()
 export class CustomerAddressService {
-  create(createCustomerAddressDto: CreateCustomerAddressDto) {
-    return 'This action adds a new customerAddress';
+  constructor(
+    @InjectModel(Customer_Address)
+    private customer_addressRepository: typeof Customer_Address,
+  ) {}
+  create(createCustomer_AddressDto: CreateCustomer_AddressDto) {
+    return this.customer_addressRepository.create(createCustomer_AddressDto);
   }
 
   findAll() {
-    return `This action returns all customerAddress`;
+    return this.customer_addressRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} customerAddress`;
+  async findOne(id: number) {
+    const customer_address = await this.customer_addressRepository.findOne({
+      where: { id },
+    });
+    if (!customer_address) {
+      throw new HttpException(
+        'Bunday customer_address topilmadi',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return customer_address;
   }
 
-  update(id: number, updateCustomerAddressDto: UpdateCustomerAddressDto) {
-    return `This action updates a #${id} customerAddress`;
+  async update(
+    id: number,
+    updateCustomer_AddressDto: UpdateCustomer_AddressDto,
+  ) {
+    const customer_address = await this.customer_addressRepository.findOne({
+      where: { id },
+    });
+    if (!customer_address) {
+      throw new HttpException(
+        'Bunday customer_address topilmadi',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return this.customer_addressRepository.update(updateCustomer_AddressDto, {
+      where: { id },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} customerAddress`;
+  async remove(id: number) {
+    const customer_address = await this.customer_addressRepository.findOne({
+      where: { id },
+    });
+    if (!customer_address) {
+      console.log('salom');
+      throw new HttpException(
+        'Bunday customer_address topilmadi',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return this.customer_addressRepository.destroy({ where: { id } });
   }
 }

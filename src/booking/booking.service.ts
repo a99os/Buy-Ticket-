@@ -36,7 +36,6 @@ export class BookingService {
   async remove(id: number) {
     const booking = await this.bookingRepository.findOne({ where: { id } });
     if (!booking) {
-      console.log("salom");
       throw new HttpException('Bunday booking topilmadi', HttpStatus.NOT_FOUND);
     }
     return this.bookingRepository.destroy({ where: { id } });

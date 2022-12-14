@@ -10,7 +10,6 @@ import {
 import { EventService } from './event.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-
 @Controller('event')
 export class EventController {
   constructor(private readonly eventService: EventService) {}
@@ -31,12 +30,15 @@ export class EventController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
-    return this.eventService.update(+id, updateEventDto);
+  async update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
+    await this.eventService.update(+id, updateEventDto);
+    return this.eventService.findOne(+id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.eventService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const event = await this.eventService.findOne(+id);
+    await this.eventService.remove(+id);
+    return event;
   }
 }

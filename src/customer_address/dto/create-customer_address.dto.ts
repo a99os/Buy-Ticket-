@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class CreateCustomerAddressDto {
+export class CreateCustomer_AddressDto {
   @IsNumber()
   @IsNotEmpty()
   readonly customer_id: number;

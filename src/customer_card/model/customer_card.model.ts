@@ -29,7 +29,7 @@ export class Customer_Card extends Model<Customer_Card, CustCardAttr> {
   @Column({
     type: DataType.STRING,
   })
-  name: number;
+  name: string;
 
   @Column({
     type: DataType.STRING,

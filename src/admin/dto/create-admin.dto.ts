@@ -11,3 +11,12 @@ export class CreateAdminDto {
   @IsNotEmpty()
   readonly password: string;
 }
+
+export class LoginAdminDto {
+  @IsString()
+  @IsNotEmpty()
+  readonly login: string;
+  @IsString()
+  @IsNotEmpty()
+  readonly password: string;
+}

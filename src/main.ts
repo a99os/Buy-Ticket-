@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './error/AllExeptions';
 
@@ -10,6 +11,8 @@ async function bootstrap() {
 
     const app = await NestFactory.create(AppModule);
     const adapterHost = app.get(HttpAdapterHost);
+
+    app.use(cookieParser());
 
     app.useGlobalFilters(new AllExceptionsFilter(adapterHost));
     app.useGlobalPipes(new ValidationPipe());

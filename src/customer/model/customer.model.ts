@@ -63,7 +63,6 @@ export class Customer extends Model<Customer, CustomerAttr> {
   lang_id: number;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   hashed_refresh_token: string;
 }

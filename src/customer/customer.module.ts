@@ -3,9 +3,10 @@ import { CustomerService } from './customer.service';
 import { CustomerController } from './customer.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Customer } from './model/customer.model';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Customer])],
+  imports: [JwtModule.register({}), SequelizeModule.forFeature([Customer])],
   controllers: [CustomerController],
   providers: [CustomerService],
 })

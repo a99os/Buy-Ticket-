@@ -45,4 +45,8 @@ export class Admin extends Model<Admin, adminAttr> {
     defaultValue: false,
   })
   is_creator: boolean;
+  @Column({
+    type: DataType.STRING,
+  })
+  hashed_refresh_token: string;
 }

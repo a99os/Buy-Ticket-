@@ -7,6 +7,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Customer } from '../../customer/model/customer.model';
+import { Status } from '../../status/model/status.model';
 import { Ticket } from '../../ticket/model/ticket.model';
 
 interface cartAttr {
@@ -43,9 +44,9 @@ export class Cart extends Model<Cart, cartAttr> {
     defaultValue: new Date(new Date().getTime() + 30 * 60000),
   })
   finishedAt: Date;
+  @ForeignKey(() => Status)
   @Column({
     type: DataType.INTEGER,
-    defaultValue: 1,
   })
   status_id: number;
 
@@ -53,4 +54,6 @@ export class Cart extends Model<Cart, cartAttr> {
   ticket: Ticket;
   @BelongsTo(() => Customer)
   customer: Customer;
+  @BelongsTo(() => Status)
+  status: Status;
 }

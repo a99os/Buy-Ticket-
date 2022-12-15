@@ -5,7 +5,7 @@ interface regionAttr {
   id: number;
   name: string;
 }
-@Table({ tableName: 'region' })
+@Table({ tableName: 'ticket_type' })
 export class Ticket_Type extends Model<Ticket_Type, regionAttr> {
   @Column({
     type: DataType.INTEGER,

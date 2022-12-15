@@ -7,8 +7,8 @@ export class CreateCustomerCardDto {
   @IsString()
   @IsNotEmpty()
   readonly name: string;
-  @Matches(/^998([378]{2}|(9[013-57-9]))\d{7}$/gi, {
-    message: "O'zbekiston raqamiga mos emas",
+  @Matches(/^998([378]{2}|(9[013-57-9]))\d{7}$/i, {
+    message: "phone O'zbekiston raqamiga mos emas",
   })
   readonly phone: string;
   @IsString()

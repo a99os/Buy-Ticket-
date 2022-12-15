@@ -7,9 +7,12 @@ import {
   Param,
   Delete,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { cookieGetterAdmin } from '../common/decorator/getAdminRefreshToken.decorator';
+import { CreatorGuard } from '../common/guards/creatorAdmin.guard';
+import { SelfGuard } from '../common/guards/self.guard';
 import { AdminService } from './admin.service';
 import { CreateAdminDto, LoginAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
@@ -48,6 +51,7 @@ export class AdminController {
   ) {
     return this.adminService.logout(refresh_token, res);
   }
+  @UseGuards(CreatorGuard)
   @Post('/status-active/:id')
   status_active(
     @Param('id') id: number,
@@ -65,6 +69,7 @@ export class AdminController {
     return this.adminService.creator(+id, res);
   }
 
+  @UseGuards(SelfGuard)
   @Put(':id')
   update(
     @Param('id') id: number,

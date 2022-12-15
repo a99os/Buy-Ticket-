@@ -45,6 +45,7 @@ import { CountryModule } from './country/country.module';
 import { RegionModule } from './region/region.module';
 import { DistrictModule } from './district/district.module';
 import { GenderModule } from './gender/gender.module';
+import { Pipe } from './venue_type/model/pipe.model';
 
 @Module({
   imports: [
@@ -77,6 +78,7 @@ import { GenderModule } from './gender/gender.module';
         Venue,
         Venue_Photo,
         Venue_Type,
+        Pipe
       ],
       autoLoadModels: true,
       logging: false,

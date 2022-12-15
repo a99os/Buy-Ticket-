@@ -1,4 +1,12 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsToMany,
+  Column,
+  DataType,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Pipe } from '../../venue_type/model/pipe.model';
+import { Venue_Type } from '../../venue_type/model/venue_type.model';
 
 interface VenueAttr {
   id: number;
@@ -43,10 +51,6 @@ export class Venue extends Model<Venue, VenueAttr> {
   })
   phone: string;
   @Column({
-    type: DataType.INTEGER,
-  })
-  venue_type_id: number;
-  @Column({
     type: DataType.STRING,
   })
   schema: string;
@@ -58,4 +62,7 @@ export class Venue extends Model<Venue, VenueAttr> {
     type: DataType.INTEGER,
   })
   district_id: number;
+
+  @BelongsToMany(() => Venue_Type, () => Pipe)
+  venue_types: Venue_Type[];
 }

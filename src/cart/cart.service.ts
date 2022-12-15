@@ -11,11 +11,14 @@ export class CartService {
   }
 
   findAll() {
-    return this.cartRepository.findAll();
+    return this.cartRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {
-    const cart = await this.cartRepository.findOne({ where: { id } });
+    const cart = await this.cartRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!cart) {
       throw new HttpException('Bunday cart topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -23,7 +26,10 @@ export class CartService {
   }
 
   async update(id: number, updateCartDto: UpdateCartDto) {
-    const cart = await this.cartRepository.findOne({ where: { id } });
+    const cart = await this.cartRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!cart) {
       throw new HttpException('Bunday cart topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -31,7 +37,10 @@ export class CartService {
   }
 
   async remove(id: number) {
-    const cart = await this.cartRepository.findOne({ where: { id } });
+    const cart = await this.cartRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!cart) {
       throw new HttpException('Bunday cart topilmadi', HttpStatus.NOT_FOUND);
     }

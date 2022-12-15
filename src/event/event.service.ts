@@ -20,11 +20,14 @@ export class EventService {
   }
 
   findAll() {
-    return this.eventRepository.findAll();
+    return this.eventRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {
-    const event = await this.eventRepository.findOne({ where: { id } });
+    const event = await this.eventRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!event) {
       throw new HttpException('Bunday event topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -32,7 +35,10 @@ export class EventService {
   }
 
   async update(id: number, updateEventDto: UpdateEventDto, image: any) {
-    const event = await this.eventRepository.findOne({ where: { id } });
+    const event = await this.eventRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!event) {
       throw new HttpException('Bunday event topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -48,7 +54,10 @@ export class EventService {
   }
 
   async remove(id: number) {
-    const event = await this.eventRepository.findOne({ where: { id } });
+    const event = await this.eventRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!event) {
       throw new HttpException('Bunday event topilmadi', HttpStatus.NOT_FOUND);
     }

@@ -14,11 +14,14 @@ export class BookingService {
   }
 
   findAll() {
-    return this.bookingRepository.findAll();
+    return this.bookingRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {
-    const booking = await this.bookingRepository.findOne({ where: { id } });
+    const booking = await this.bookingRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!booking) {
       throw new HttpException('Bunday booking topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -26,7 +29,10 @@ export class BookingService {
   }
 
   async update(id: number, updateBookingDto: UpdateBookingDto) {
-    const booking = await this.bookingRepository.findOne({ where: { id } });
+    const booking = await this.bookingRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!booking) {
       throw new HttpException('Bunday booking topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -34,7 +40,10 @@ export class BookingService {
   }
 
   async remove(id: number) {
-    const booking = await this.bookingRepository.findOne({ where: { id } });
+    const booking = await this.bookingRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!booking) {
       throw new HttpException('Bunday booking topilmadi', HttpStatus.NOT_FOUND);
     }

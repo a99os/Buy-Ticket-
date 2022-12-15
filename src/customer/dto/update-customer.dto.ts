@@ -18,7 +18,7 @@ export class UpdateCustomerDto {
   @IsString()
   readonly last_name: string;
   @IsOptional()
-  @Matches(/^998([378]{2}|(9[013-57-9]))\d{7}$/gi, {
+  @Matches(/^998([378]{2}|(9[013-57-9]))\d{7}$/i, {
     message: "phone O'zbekiston raqamiga mos emas",
   })
   readonly phone: string;

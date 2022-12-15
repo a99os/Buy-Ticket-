@@ -11,11 +11,14 @@ export class GenderService {
   }
 
   findAll() {
-    return this.genderRepository.findAll();
+    return this.genderRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {
-    const gender = await this.genderRepository.findOne({ where: { id } });
+    const gender = await this.genderRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!gender) {
       throw new HttpException('Bunday gender topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -23,7 +26,10 @@ export class GenderService {
   }
 
   async update(id: number, updateGenderDto: UpdateGenderDto) {
-    const gender = await this.genderRepository.findOne({ where: { id } });
+    const gender = await this.genderRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!gender) {
       throw new HttpException('Bunday gender topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -31,7 +37,10 @@ export class GenderService {
   }
 
   async remove(id: number) {
-    const gender = await this.genderRepository.findOne({ where: { id } });
+    const gender = await this.genderRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!gender) {
       throw new HttpException('Bunday gender topilmadi', HttpStatus.NOT_FOUND);
     }

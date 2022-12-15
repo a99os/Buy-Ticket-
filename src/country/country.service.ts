@@ -5,17 +5,22 @@ import { UpdateCountryDto } from './dto/update-country.dto';
 import { Country } from './model/country.model';
 @Injectable()
 export class CountryService {
-  constructor(@InjectModel(Country) private countryRepository: typeof Country) {}
+  constructor(
+    @InjectModel(Country) private countryRepository: typeof Country,
+  ) {}
   create(createCountryDto: CreateCountryDto) {
     return this.countryRepository.create(createCountryDto);
   }
 
   findAll() {
-    return this.countryRepository.findAll();
+    return this.countryRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {
-    const country = await this.countryRepository.findOne({ where: { id } });
+    const country = await this.countryRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!country) {
       throw new HttpException('Bunday country topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -23,7 +28,10 @@ export class CountryService {
   }
 
   async update(id: number, updateCountryDto: UpdateCountryDto) {
-    const country = await this.countryRepository.findOne({ where: { id } });
+    const country = await this.countryRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!country) {
       throw new HttpException('Bunday country topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -31,7 +39,10 @@ export class CountryService {
   }
 
   async remove(id: number) {
-    const country = await this.countryRepository.findOne({ where: { id } });
+    const country = await this.countryRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!country) {
       throw new HttpException('Bunday country topilmadi', HttpStatus.NOT_FOUND);
     }

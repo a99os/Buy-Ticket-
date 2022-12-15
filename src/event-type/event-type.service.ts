@@ -13,7 +13,7 @@ export class EventTypeService {
   }
 
   findAll() {
-    return this.event_typeRepository.findAll();
+    return this.event_typeRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {

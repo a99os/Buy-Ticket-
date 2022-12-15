@@ -11,11 +11,14 @@ export class SeatService {
   }
 
   findAll() {
-    return this.seatRepository.findAll();
+    return this.seatRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {
-    const seat = await this.seatRepository.findOne({ where: { id } });
+    const seat = await this.seatRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!seat) {
       throw new HttpException('Bunday seat topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -23,7 +26,10 @@ export class SeatService {
   }
 
   async update(id: number, updateSeatDto: UpdateSeatDto) {
-    const seat = await this.seatRepository.findOne({ where: { id } });
+    const seat = await this.seatRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!seat) {
       throw new HttpException('Bunday seat topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -31,7 +37,10 @@ export class SeatService {
   }
 
   async remove(id: number) {
-    const seat = await this.seatRepository.findOne({ where: { id } });
+    const seat = await this.seatRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!seat) {
       throw new HttpException('Bunday seat topilmadi', HttpStatus.NOT_FOUND);
     }

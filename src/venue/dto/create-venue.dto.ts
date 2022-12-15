@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  Matches,
+} from 'class-validator';
 
 export class CreateVenueDto {
   @IsString()
@@ -13,12 +19,13 @@ export class CreateVenueDto {
   @IsString()
   @IsNotEmpty()
   readonly site: string;
-  @IsString()
-  @IsNotEmpty()
+  @Matches(/^998([378]{2}|(9[013-57-9]))\d{7}$/i, {
+    message: "phone O'zbekiston raqamiga mos emas",
+  })
   readonly phone: string;
-  @IsNumber()
+  @IsArray()
   @IsNotEmpty()
-  readonly venue_type_id: number;
+  readonly venue_type: number[];
   @IsString()
   @IsNotEmpty()
   readonly schema: string;

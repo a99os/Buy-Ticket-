@@ -11,11 +11,14 @@ export class LangService {
   }
 
   findAll() {
-    return this.langRepository.findAll();
+    return this.langRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {
-    const lang = await this.langRepository.findOne({ where: { id } });
+    const lang = await this.langRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!lang) {
       throw new HttpException('Bunday lang topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -23,7 +26,10 @@ export class LangService {
   }
 
   async update(id: number, updateLangDto: UpdateLangDto) {
-    const lang = await this.langRepository.findOne({ where: { id } });
+    const lang = await this.langRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!lang) {
       throw new HttpException('Bunday lang topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -31,7 +37,10 @@ export class LangService {
   }
 
   async remove(id: number) {
-    const lang = await this.langRepository.findOne({ where: { id } });
+    const lang = await this.langRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!lang) {
       throw new HttpException('Bunday lang topilmadi', HttpStatus.NOT_FOUND);
     }

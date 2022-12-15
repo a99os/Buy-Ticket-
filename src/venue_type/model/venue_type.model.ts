@@ -1,4 +1,12 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsToMany,
+  Column,
+  DataType,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Venue } from '../../venue/model/venude.model';
+import { Pipe } from './pipe.model';
 
 interface VenueTypeAttr {
   id: number;
@@ -24,4 +32,6 @@ export class Venue_Type extends Model<Venue_Type, VenueTypeAttr> {
     type: DataType.STRING,
   })
   name: string;
+  @BelongsToMany(() => Venue, () => Pipe)
+  users: Venue[];
 }

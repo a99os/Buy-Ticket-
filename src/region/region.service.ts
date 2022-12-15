@@ -11,11 +11,14 @@ export class RegionService {
   }
 
   findAll() {
-    return this.regionRepository.findAll();
+    return this.regionRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {
-    const region = await this.regionRepository.findOne({ where: { id } });
+    const region = await this.regionRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!region) {
       throw new HttpException('Bunday region topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -23,7 +26,10 @@ export class RegionService {
   }
 
   async update(id: number, updateRegionDto: UpdateRegionDto) {
-    const region = await this.regionRepository.findOne({ where: { id } });
+    const region = await this.regionRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!region) {
       throw new HttpException('Bunday region topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -31,7 +37,10 @@ export class RegionService {
   }
 
   async remove(id: number) {
-    const region = await this.regionRepository.findOne({ where: { id } });
+    const region = await this.regionRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!region) {
       throw new HttpException('Bunday region topilmadi', HttpStatus.NOT_FOUND);
     }

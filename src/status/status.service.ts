@@ -11,11 +11,14 @@ export class StatusService {
   }
 
   findAll() {
-    return this.statusRepository.findAll();
+    return this.statusRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {
-    const status = await this.statusRepository.findOne({ where: { id } });
+    const status = await this.statusRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!status) {
       throw new HttpException('Bunday status topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -23,7 +26,10 @@ export class StatusService {
   }
 
   async update(id: number, updateStatusDto: UpdateStatusDto) {
-    const status = await this.statusRepository.findOne({ where: { id } });
+    const status = await this.statusRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!status) {
       throw new HttpException('Bunday status topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -31,7 +37,10 @@ export class StatusService {
   }
 
   async remove(id: number) {
-    const status = await this.statusRepository.findOne({ where: { id } });
+    const status = await this.statusRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!status) {
       throw new HttpException('Bunday status topilmadi', HttpStatus.NOT_FOUND);
     }

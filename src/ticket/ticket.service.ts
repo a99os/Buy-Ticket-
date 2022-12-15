@@ -11,11 +11,14 @@ export class TicketService {
   }
 
   findAll() {
-    return this.ticketRepository.findAll();
+    return this.ticketRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {
-    const ticket = await this.ticketRepository.findOne({ where: { id } });
+    const ticket = await this.ticketRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!ticket) {
       throw new HttpException('Bunday ticket topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -23,7 +26,10 @@ export class TicketService {
   }
 
   async update(id: number, updateTicketDto: UpdateTicketDto) {
-    const ticket = await this.ticketRepository.findOne({ where: { id } });
+    const ticket = await this.ticketRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!ticket) {
       throw new HttpException('Bunday ticket topilmadi', HttpStatus.NOT_FOUND);
     }
@@ -31,7 +37,10 @@ export class TicketService {
   }
 
   async remove(id: number) {
-    const ticket = await this.ticketRepository.findOne({ where: { id } });
+    const ticket = await this.ticketRepository.findOne({
+      where: { id },
+      include: { all: true },
+    });
     if (!ticket) {
       throw new HttpException('Bunday ticket topilmadi', HttpStatus.NOT_FOUND);
     }

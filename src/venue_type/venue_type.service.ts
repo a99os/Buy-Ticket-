@@ -13,7 +13,7 @@ export class VenueTypeService {
   }
 
   findAll() {
-    return this.venue_typeRepository.findAll();
+    return this.venue_typeRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {

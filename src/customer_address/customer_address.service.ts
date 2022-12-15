@@ -15,7 +15,7 @@ export class CustomerAddressService {
   }
 
   findAll() {
-    return this.customer_addressRepository.findAll();
+    return this.customer_addressRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {

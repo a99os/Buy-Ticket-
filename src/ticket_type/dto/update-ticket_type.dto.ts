@@ -1,4 +1,10 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateTicketTypeDto } from './create-ticket_type.dto';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class UpdateTicketTypeDto extends PartialType(CreateTicketTypeDto) {}
+export class UpdateTicket_TypeDto {
+  @IsOptional()
+  @IsString()
+  readonly name: string;
+  @IsOptional()
+  @IsNotEmpty()
+  readonly color: string;
+}

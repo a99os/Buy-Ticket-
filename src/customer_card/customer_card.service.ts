@@ -15,7 +15,7 @@ export class CustomerCardService {
   }
 
   findAll() {
-    return this.customer_cardRepository.findAll();
+    return this.customer_cardRepository.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {

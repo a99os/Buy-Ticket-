@@ -1,4 +1,10 @@
-import { IsOptional, IsNumber, IsString } from 'class-validator';
+import {
+  IsOptional,
+  IsNumber,
+  IsString,
+  Matches,
+  IsArray,
+} from 'class-validator';
 
 export class UpdateVenueDto {
   @IsOptional()
@@ -14,11 +20,13 @@ export class UpdateVenueDto {
   @IsString()
   readonly site: string;
   @IsOptional()
-  @IsString()
+  @Matches(/^998([378]{2}|(9[013-57-9]))\d{7}$/i, {
+    message: "phone O'zbekiston raqamiga mos emas",
+  })
   readonly phone: string;
   @IsOptional()
-  @IsNumber()
-  readonly venue_type_id: number;
+  @IsArray()
+  readonly venue_type: number[];
   @IsOptional()
   @IsString()
   readonly schema: string;

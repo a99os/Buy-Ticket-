@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Customer_Address } from '../../customer_address/model/customer_address.model';
 
 interface countryAttr {
   id: number;
@@ -19,4 +20,7 @@ export class Country extends Model<Country, countryAttr> {
     allowNull: false,
   })
   name: string;
+
+  @HasMany(() => Customer_Address)
+  cutomer_addreses: Customer_Address[];
 }

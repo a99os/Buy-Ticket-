@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Booking } from '../../booking/model/booking.model';
 
 interface delivery_methodAttr {
   id: number;
@@ -19,4 +20,7 @@ export class Delivery_Method extends Model<Delivery_Method, delivery_methodAttr>
     allowNull: false,
   })
   name: string;
+
+  @HasMany(()=>Booking)
+  bookings:Booking[]
 }

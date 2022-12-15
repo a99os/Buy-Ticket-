@@ -1,4 +1,17 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Cart } from '../../cart/model/cart.model';
+import { Customer_Address } from '../../customer_address/model/customer_address.model';
+import { Customer_Card } from '../../customer_card/model/customer_card.model';
+import { Gender } from '../../gender/model/gender.model';
+import { Lang } from '../../lang/model/lang.model';
 
 interface CustomerAttr {
   first_name: string;
@@ -51,11 +64,13 @@ export class Customer extends Model<Customer, CustomerAttr> {
     allowNull: false,
   })
   birth_date: Date;
+  @ForeignKey(() => Gender)
   @Column({
     type: DataType.INTEGER,
     defaultValue: 1,
   })
-  gender: number;
+  gender_id: number;
+  @ForeignKey(() => Lang)
   @Column({
     type: DataType.INTEGER,
     defaultValue: 1,
@@ -65,4 +80,17 @@ export class Customer extends Model<Customer, CustomerAttr> {
     type: DataType.STRING,
   })
   hashed_refresh_token: string;
+
+  @BelongsTo(() => Lang)
+  lang: Lang;
+
+  @BelongsTo(() => Gender)
+  gender: Gender;
+
+  @HasMany(() => Customer_Card)
+  customer_cards: Customer_Card[];
+  @HasMany(() => Cart)
+  cards: Cart[];
+  @HasMany(() => Customer_Address)
+  customer_addresses: Customer_Address[];
 }

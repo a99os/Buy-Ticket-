@@ -15,7 +15,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
   constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
 
   catch(exception: Iexep, host: ArgumentsHost): void {
-    
     const { httpAdapter } = this.httpAdapterHost;
 
     const ctx = host.switchToHttp();
@@ -27,7 +26,11 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
     console.log(exception);
     const responseBody = {
-      message: exception.response || exception.errors,
+      message:
+        exception.response ||
+        exception.errors ||
+        exception.original['detail'] ||
+        "Ko'zda tutilmagan xatolik",
       statusCode: httpStatus,
       timestamp: new Date().toISOString(),
       path: httpAdapter.getRequestUrl(ctx.getRequest()),

@@ -1,4 +1,6 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Customer } from '../../customer/model/customer.model';
+import { Human_Category } from '../../human-category/model/human-category.model';
 
 interface genderAttr {
   id: number;
@@ -19,4 +21,9 @@ export class Gender extends Model<Gender, genderAttr> {
     allowNull: false,
   })
   name: string;
+
+  @HasMany(() => Customer)
+  customers: Customer[];
+  @HasMany(() => Human_Category)
+  human_categories: Human_Category[];
 }

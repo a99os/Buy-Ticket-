@@ -1,11 +1,13 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Customer } from '../../customer/model/customer.model';
+import { Event } from '../../event/model/event.model';
 
-interface genderAttr {
+interface langAttr {
   id: number;
   name: string;
 }
-@Table({ tableName: 'gender' })
-export class Lang extends Model<Lang, genderAttr> {
+@Table({ tableName: 'lang' })
+export class Lang extends Model<Lang, langAttr> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -19,4 +21,10 @@ export class Lang extends Model<Lang, genderAttr> {
     allowNull: false,
   })
   name: string;
+
+  @HasMany(() => Customer)
+  customers: Customer[];
+
+  @HasMany(() => Event)
+  events: Event[];
 }

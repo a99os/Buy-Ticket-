@@ -1,4 +1,13 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Customer } from '../../customer/model/customer.model';
+import { Ticket } from '../../ticket/model/ticket.model';
 
 interface cartAttr {
   ticket_id: number;
@@ -16,11 +25,14 @@ export class Cart extends Model<Cart, cartAttr> {
   })
   id: number;
 
+  @ForeignKey(() => Ticket)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
   ticket_id: number;
+
+  @ForeignKey(() => Customer)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -36,4 +48,9 @@ export class Cart extends Model<Cart, cartAttr> {
     defaultValue: 1,
   })
   status_id: number;
+
+  @BelongsTo(() => Ticket)
+  ticket: Ticket;
+  @BelongsTo(() => Customer)
+  customer: Customer;
 }

@@ -1,4 +1,17 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Event_Type } from '../../event-type/model/event_type.model';
+import { Human_Category } from '../../human-category/model/human-category.model';
+import { Lang } from '../../lang/model/lang.model';
+import { Ticket } from '../../ticket/model/ticket.model';
+import { Venue } from '../../venue/model/venude.model';
 
 interface EventAttr {
   id: number;
@@ -53,21 +66,37 @@ export class Event extends Model<Event, EventAttr> {
   @Column({
     type: DataType.INTEGER,
   })
+  @ForeignKey(() => Event_Type)
   event_type_id: number;
   @Column({
     type: DataType.INTEGER,
   })
+  @ForeignKey(() => Human_Category)
   human_category_id: number;
   @Column({
     type: DataType.INTEGER,
   })
+  @ForeignKey(() => Venue)
   venue_id: number;
   @Column({
     type: DataType.INTEGER,
   })
+  @ForeignKey(() => Lang)
   lang_id: number;
   @Column({
     type: DataType.DATE,
   })
   release_date: Date;
+
+  @BelongsTo(() => Event_Type)
+  event_type: Event_Type;
+  @BelongsTo(() => Human_Category)
+  human_category: Human_Category;
+  @BelongsTo(() => Venue)
+  venue: Venue;
+  @BelongsTo(() => Lang)
+  language: Lang;
+
+  @HasMany(() => Ticket)
+  tickets: Ticket[];
 }

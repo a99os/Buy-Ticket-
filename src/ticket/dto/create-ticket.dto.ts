@@ -15,7 +15,7 @@ export class CreateTicketDto {
   readonly service_fee: number;
   @IsNumber()
   @IsNotEmpty()
-  readonly status: number;
+  readonly status_id: number;
   @IsNumber()
   @IsNotEmpty()
   readonly ticket_type: number;

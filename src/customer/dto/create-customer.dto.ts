@@ -3,6 +3,7 @@ import {
   IsEmail,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   Length,
   Matches,
@@ -29,11 +30,12 @@ export class CreateCustomerDto {
   readonly confirm_password: string;
   @IsEmail()
   readonly email: string;
+  @IsOptional()
   @IsDateString()
   readonly birth_date: Date;
+  @IsOptional()
   @IsNumber()
-  @IsNotEmpty()
-  readonly gender: number;
+  readonly gender_id: number;
   @IsNumber()
   @IsNotEmpty()
   readonly lang_id: number;

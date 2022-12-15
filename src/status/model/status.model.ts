@@ -1,11 +1,12 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Ticket } from '../../ticket/model/ticket.model';
 
-interface regionAttr {
+interface statusAttr {
   id: number;
   name: string;
 }
-@Table({ tableName: 'region' })
-export class Status extends Model<Status, regionAttr> {
+@Table({ tableName: 'status' })
+export class Status extends Model<Status, statusAttr> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -19,4 +20,7 @@ export class Status extends Model<Status, regionAttr> {
     allowNull: false,
   })
   name: string;
+
+  @HasMany(() => Ticket)
+  tickets: Ticket[];
 }

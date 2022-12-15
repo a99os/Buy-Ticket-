@@ -1,4 +1,12 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Venue } from '../../venue/model/venude.model';
 
 interface VenuePhotoAttr {
   id: number;
@@ -18,9 +26,13 @@ export class Venue_Photo extends Model<Venue_Photo, VenuePhotoAttr> {
   @Column({
     type: DataType.INTEGER,
   })
+  @ForeignKey(() => Venue)
   object_id: number;
   @Column({
     type: DataType.STRING,
   })
   url: string;
+
+  @BelongsTo(() => Venue)
+  venue: Venue;
 }

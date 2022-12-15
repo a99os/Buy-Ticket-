@@ -15,7 +15,7 @@ export class UpdateTicketDto {
   readonly service_fee: number;
   @IsOptional()
   @IsNumber()
-  readonly status: number;
+  readonly status_id: number;
   @IsOptional()
   @IsNumber()
   readonly ticket_type: number;

@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Ticket } from '../../ticket/model/ticket.model';
 
 interface regionAttr {
   id: number;
@@ -24,4 +25,7 @@ export class Ticket_Type extends Model<Ticket_Type, regionAttr> {
     allowNull: false,
   })
   color: string;
+
+  @HasMany(() => Ticket)
+  tickets: Ticket[];
 }

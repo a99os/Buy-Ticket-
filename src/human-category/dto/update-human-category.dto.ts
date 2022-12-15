@@ -12,5 +12,5 @@ export class UpdateHumanCategoryDto {
   readonly finish_age: number;
   @IsOptional()
   @IsNumber()
-  readonly gender: number;
+  readonly gender_id: number;
 }

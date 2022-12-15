@@ -1,4 +1,12 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Customer } from '../../customer/model/customer.model';
 
 interface CustCardAttr {
   customer_id: number;
@@ -20,7 +28,7 @@ export class Customer_Card extends Model<Customer_Card, CustCardAttr> {
     autoIncrement: true,
   })
   id: number;
-
+  @ForeignKey(() => Customer)
   @Column({
     type: DataType.INTEGER,
   })
@@ -54,4 +62,7 @@ export class Customer_Card extends Model<Customer_Card, CustCardAttr> {
     defaultValue: false,
   })
   is_main: boolean;
+
+  @BelongsTo(() => Customer)
+  customer: Customer;
 }

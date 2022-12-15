@@ -1,4 +1,15 @@
-import { Table, Model, Column, DataType } from 'sequelize-typescript';
+import {
+  Table,
+  Model,
+  Column,
+  DataType,
+  ForeignKey,
+  BelongsTo,
+  HasMany,
+} from 'sequelize-typescript';
+import { Seat_Type } from '../../seat-type/model/seat-type.model';
+import { Ticket } from '../../ticket/model/ticket.model';
+import { Venue } from '../../venue/model/venude.model';
 
 interface SeatAttr {
   id: number;
@@ -35,13 +46,24 @@ export class Seat extends Model<Seat, SeatAttr> {
   @Column({
     type: DataType.INTEGER,
   })
+  @ForeignKey(() => Venue)
   venue_id: number;
   @Column({
     type: DataType.INTEGER,
   })
-  set_type_id: number;
+  @ForeignKey(() => Seat_Type)
+  seat_type_id: number;
   @Column({
     type: DataType.STRING,
   })
   location_in_schema: string;
+
+  @BelongsTo(() => Venue)
+  venue: Venue;
+
+  @BelongsTo(() => Seat_Type)
+  seat_type: Seat_Type;
+
+  @HasMany(() => Ticket)
+  tickets: Ticket[];
 }

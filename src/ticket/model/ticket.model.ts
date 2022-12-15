@@ -1,4 +1,17 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  HasOne,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Cart } from '../../cart/model/cart.model';
+import { Event } from '../../event/model/event.model';
+import { Seat } from '../../seat/model/seat.model';
+import { Status } from '../../status/model/status.model';
+import { Ticket_Type } from '../../ticket_type/model/ticket_type.model';
 
 interface TicketAttr {
   id: number;
@@ -20,10 +33,12 @@ export class Ticket extends Model<Ticket, TicketAttr> {
   })
   id: number;
 
+  @ForeignKey(() => Event)
   @Column({
     type: DataType.INTEGER,
   })
   event_id: number;
+  @ForeignKey(() => Seat)
   @Column({
     type: DataType.INTEGER,
   })
@@ -36,12 +51,24 @@ export class Ticket extends Model<Ticket, TicketAttr> {
     type: DataType.DECIMAL(13, 2),
   })
   service_fee: number;
+  @ForeignKey(() => Status)
   @Column({
     type: DataType.INTEGER,
   })
-  status: number;
+  status_id: number;
+  @ForeignKey(() => Ticket_Type)
   @Column({
     type: DataType.INTEGER,
   })
   ticket_type: number;
+
+  @BelongsTo(() => Event)
+  event: Event;
+  @BelongsTo(() => Seat)
+  seat: Seat;
+  @BelongsTo(() => Status)
+  status: Status;
+
+  @HasOne(() => Cart)
+  cart: Cart;
 }

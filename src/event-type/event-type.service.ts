@@ -8,7 +8,21 @@ export class EventTypeService {
   constructor(
     @InjectModel(Event_Type) private event_typeRepository: typeof Event_Type,
   ) {}
-  create(createEvent_TypeDto: CreateEventTypeDto) {
+  async create(createEvent_TypeDto: CreateEventTypeDto) {
+    if (createEvent_TypeDto.parent_event_type_id) {
+      if (
+        await this.event_typeRepository.findOne({
+          where: {
+            parent_event_type_id: createEvent_TypeDto.parent_event_type_id,
+          },
+        })
+      ) {
+        throw new HttpException(
+          'Parent category id da category topilmadi',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+    }
     return this.event_typeRepository.create(createEvent_TypeDto);
   }
 
@@ -38,6 +52,20 @@ export class EventTypeService {
         'Bunday event_type topilmadi',
         HttpStatus.NOT_FOUND,
       );
+    }
+    if (updateEvent_TypeDto.parent_event_type_id) {
+      if (
+        await this.event_typeRepository.findOne({
+          where: {
+            parent_event_type_id: updateEvent_TypeDto.parent_event_type_id,
+          },
+        })
+      ) {
+        throw new HttpException(
+          'Parent category id da category topilmadi',
+          HttpStatus.NOT_FOUND,
+        );
+      }
     }
     return this.event_typeRepository.update(updateEvent_TypeDto, {
       where: { id },

@@ -12,5 +12,5 @@ export class CreateHumanCategoryDto {
   readonly finish_age: number;
   @IsNumber()
   @IsNotEmpty()
-  readonly gender: number;
+  readonly gender_id: number;
 }

@@ -1,4 +1,5 @@
-import { Table, Model, Column, DataType } from 'sequelize-typescript';
+import { Table, Model, Column, DataType, HasMany } from 'sequelize-typescript';
+import { Seat } from '../../seat/model/seat.model';
 
 interface SeatTypeAttr {
   id: number;
@@ -19,4 +20,7 @@ export class Seat_Type extends Model<Seat_Type, SeatTypeAttr> {
     unique: true,
   })
   name: string;
+
+  @HasMany(() => Seat)
+  seats: Seat[];
 }

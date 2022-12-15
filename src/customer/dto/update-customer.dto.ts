@@ -30,7 +30,7 @@ export class UpdateCustomerDto {
   readonly birth_date: Date;
   @IsOptional()
   @IsNumber()
-  readonly gender: number;
+  readonly gender_id: number;
   @IsOptional()
   @IsNumber()
   readonly lang_id: number;

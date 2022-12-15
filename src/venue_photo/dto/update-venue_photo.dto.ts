@@ -1,6 +1,7 @@
 import {
   IsNotEmpty,
   IsNumber,
+  IsNumberString,
   IsOptional,
   IsString,
   Matches,
@@ -8,6 +9,6 @@ import {
 
 export class UpdateVenuePhotoDto {
   @IsOptional()
-  @Matches(/^[0-9]/i, { message: 'object_id must be number' })
+  @IsNumberString()
   readonly object_id: number;
 }

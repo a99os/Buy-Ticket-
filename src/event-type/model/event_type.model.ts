@@ -1,4 +1,5 @@
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -29,8 +30,12 @@ export class Event_Type extends Model<Event_Type, EventTypeAttr> {
   })
   name: string;
 
+  @ForeignKey(() => Event_Type)
   @Column({
     type: DataType.INTEGER,
   })
   parent_event_type_id: number;
+
+  @BelongsTo(() => Event_Type)
+  parent: Event_Type;
 }

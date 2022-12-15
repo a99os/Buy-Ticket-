@@ -3,6 +3,7 @@ import {
   IsMilitaryTime,
   IsNotEmpty,
   IsNumber,
+  IsNumberString,
   IsString,
   Matches,
 } from 'class-validator';
@@ -30,9 +31,13 @@ export class CreateEventDto {
   @IsString()
   @IsNotEmpty()
   readonly info: string;
+  @IsNumberString()
   readonly event_type_id: number;
+  @IsNumberString()
   readonly human_category_id: number;
+  @IsNumberString()
   readonly venue_id: number;
+  @IsNumberString()
   readonly lang_id: number;
   @IsDateString()
   readonly release_date: Date;

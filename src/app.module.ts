@@ -33,9 +33,14 @@ import { Ticket } from './ticket/model/ticket.model';
 import { Venue } from './venue/model/venude.model';
 import { Venue_Photo } from './venue_photo/model/venue_photo.model';
 import { Venue_Type } from './venue_type/model/venue_type.model';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { resolve } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: resolve(__dirname, 'images'),
+    }),
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
     }),
@@ -60,12 +65,13 @@ import { Venue_Type } from './venue_type/model/venue_type.model';
         Human_Category,
         Ticket,
         Venue,
-        // Venue_Photo,
+        Venue_Photo,
         Venue_Type,
       ],
       autoLoadModels: true,
       logging: false,
     }),
+
     BookingModule,
     CartModule,
     TicketModule,

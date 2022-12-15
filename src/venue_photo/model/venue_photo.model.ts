@@ -1,5 +1,4 @@
-import { Model } from 'sequelize';
-import { Column, DataType, Table } from 'sequelize-typescript';
+import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 interface VenuePhotoAttr {
   id: number;

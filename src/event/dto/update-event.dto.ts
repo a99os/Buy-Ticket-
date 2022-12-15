@@ -10,19 +10,20 @@ export class UpdateEventDto {
   @IsOptional()
   @IsString()
   readonly name: string;
-  @IsOptional()
-  @IsString()
-  readonly photo: string;
+
   @IsOptional()
   @IsDateString()
   readonly start_date: Date;
+  @IsOptional()
   @IsString()
   @IsMilitaryTime({
     message: 'start_time must be a valid time in format HH24:MM',
   })
   readonly start_time: string;
+  @IsOptional()
   @IsDateString()
   readonly finish_date: Date;
+  @IsOptional()
   @IsString()
   @IsMilitaryTime({
     message: 'finish_time must be a valid time in format HH24:MM',
@@ -31,14 +32,15 @@ export class UpdateEventDto {
   @IsOptional()
   @IsString()
   readonly info: string;
-  @IsNumber()
+  @IsOptional()
   readonly event_type_id: number;
-  @IsNumber()
+  @IsOptional()
   readonly human_category_id: number;
-  @IsNumber()
+  @IsOptional()
   readonly venue_id: number;
-  @IsNumber()
+  @IsOptional()
   readonly lang_id: number;
+  @IsOptional()
   @IsDateString()
   readonly release_date: Date;
 }

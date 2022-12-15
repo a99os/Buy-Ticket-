@@ -6,18 +6,25 @@ import {
   Put,
   Param,
   Delete,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { VenuePhotoService } from './venue_photo.service';
 import { CreateVenuePhotoDto } from './dto/create-venue_photo.dto';
 import { UpdateVenuePhotoDto } from './dto/update-venue_photo.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('venue-photo')
 export class VenuePhotoController {
   constructor(private readonly venuePhotoService: VenuePhotoService) {}
 
   @Post()
-  create(@Body() createVenuePhotoDto: CreateVenuePhotoDto) {
-    return this.venuePhotoService.create(createVenuePhotoDto);
+  @UseInterceptors(FileInterceptor('image'))
+  create(
+    @Body() createVenuePhotoDto: CreateVenuePhotoDto,
+    @UploadedFile() image,
+  ) {
+    return this.venuePhotoService.create(createVenuePhotoDto, image);
   }
 
   @Get()
@@ -31,15 +38,21 @@ export class VenuePhotoController {
   }
 
   @Put(':id')
-  update(
+  @UseInterceptors(FileInterceptor('image'))
+  async update(
     @Param('id') id: string,
     @Body() updateVenuePhotoDto: UpdateVenuePhotoDto,
+    @UploadedFile() image,
   ) {
-    return this.venuePhotoService.update(+id, updateVenuePhotoDto);
+    console.log(updateVenuePhotoDto, image);
+    await this.venuePhotoService.update(+id, updateVenuePhotoDto, image);
+    return this.venuePhotoService.findOne(+id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.venuePhotoService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const data = await this.venuePhotoService.findOne(+id);
+    await this.venuePhotoService.remove(+id);
+    return data;
   }
 }

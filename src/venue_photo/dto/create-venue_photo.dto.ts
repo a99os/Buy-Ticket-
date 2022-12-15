@@ -1,10 +1,6 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, Matches } from 'class-validator';
 
 export class CreateVenuePhotoDto {
-  @IsNumber()
-  @IsNotEmpty()
+  @Matches(/^[0-9]/i, { message: 'object_id must be number' })
   readonly object_id: number;
-  @IsNotEmpty()
-  @IsString()
-  readonly url: string;
 }

@@ -4,15 +4,14 @@ import {
   IsNotEmpty,
   IsNumber,
   IsString,
+  Matches,
 } from 'class-validator';
 
 export class CreateEventDto {
   @IsString()
   @IsNotEmpty()
   readonly name: string;
-  @IsString()
-  @IsNotEmpty()
-  readonly photo: string;
+
   @IsDateString()
   @IsNotEmpty()
   readonly start_date: Date;
@@ -31,13 +30,9 @@ export class CreateEventDto {
   @IsString()
   @IsNotEmpty()
   readonly info: string;
-  @IsNumber()
   readonly event_type_id: number;
-  @IsNumber()
   readonly human_category_id: number;
-  @IsNumber()
   readonly venue_id: number;
-  @IsNumber()
   readonly lang_id: number;
   @IsDateString()
   readonly release_date: Date;

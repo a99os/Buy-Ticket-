@@ -15,7 +15,6 @@ interface EventAttr {
   lang_id: number;
   release_date: Date;
 }
-
 @Table({ tableName: 'event' })
 export class Event extends Model<Event, EventAttr> {
   @Column({
@@ -39,17 +38,13 @@ export class Event extends Model<Event, EventAttr> {
     type: DataType.DATE,
   })
   start_date: Date;
-  @Column({
-    type: DataType.TIME,
-  })
+  @Column({ type: DataType.STRING })
   start_time: string;
   @Column({
     type: DataType.DATE,
   })
   finish_date: Date;
-  @Column({
-    type: DataType.TIME,
-  })
+  @Column({ type: DataType.STRING })
   finish_time: string;
   @Column({
     type: DataType.TEXT,

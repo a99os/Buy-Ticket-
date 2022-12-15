@@ -1,4 +1,13 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateVenuePhotoDto } from './create-venue_photo.dto';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Matches,
+} from 'class-validator';
 
-export class UpdateVenuePhotoDto extends PartialType(CreateVenuePhotoDto) {}
+export class UpdateVenuePhotoDto {
+  @IsOptional()
+  @Matches(/^[0-9]/i, { message: 'object_id must be number' })
+  readonly object_id: number;
+}

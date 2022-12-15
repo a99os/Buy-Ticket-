@@ -35,6 +35,16 @@ import { Venue_Photo } from './venue_photo/model/venue_photo.model';
 import { Venue_Type } from './venue_type/model/venue_type.model';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { resolve } from 'path';
+import { PaymentMethodModule } from './payment_method/payment_method.module';
+import { DeliveryMethodModule } from './delivery_method/delivery_method.module';
+import { DiscountCouponModule } from './discount_coupon/discount_coupon.module';
+import { StatusModule } from './status/status.module';
+import { TicketTypeModule } from './ticket_type/ticket_type.module';
+import { LangModule } from './lang/lang.module';
+import { CountryModule } from './country/country.module';
+import { RegionModule } from './region/region.module';
+import { DistrictModule } from './district/district.module';
+import { GenderModule } from './gender/gender.module';
 
 @Module({
   imports: [
@@ -87,6 +97,16 @@ import { resolve } from 'path';
     VenueModule,
     VenuePhotoModule,
     VenueTypeModule,
+    PaymentMethodModule,
+    DeliveryMethodModule,
+    DiscountCouponModule,
+    StatusModule,
+    TicketTypeModule,
+    LangModule,
+    CountryModule,
+    RegionModule,
+    DistrictModule,
+    GenderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

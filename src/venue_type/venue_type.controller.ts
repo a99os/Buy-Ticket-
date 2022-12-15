@@ -10,6 +10,9 @@ import {
 import { VenueTypeService } from './venue_type.service';
 import { CreateVenueTypeDto } from './dto/create-venue_type.dto';
 import { UpdateVenueTypeDto } from './dto/update-venue_type.dto';
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('Venue_Type')
 @Controller('venue_type')
 export class VenueTypeController {
   constructor(private readonly venue_typeService: VenueTypeService) {}

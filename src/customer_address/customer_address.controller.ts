@@ -7,10 +7,11 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CustomerAddressService } from './customer_address.service';
 import { CreateCustomer_AddressDto } from './dto/create-customer_address.dto';
 import { UpdateCustomer_AddressDto } from './dto/update-customer_address.dto';
-
+@ApiTags('Customer-Address')
 @Controller('customer_address')
 export class Customer_AddressController {
   constructor(

@@ -4,9 +4,14 @@ import { EventController } from './event.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Event } from './model/event.model';
 import { FilesModule } from '../files/files.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [FilesModule, SequelizeModule.forFeature([Event])],
+  imports: [
+    JwtModule.register({}),
+    FilesModule,
+    SequelizeModule.forFeature([Event]),
+  ],
   controllers: [EventController],
   providers: [EventService],
 })

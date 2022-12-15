@@ -10,6 +10,10 @@ import {
 import { SeatService } from './seat.service';
 import { CreateSeatDto } from './dto/create-seat.dto';
 import { UpdateSeatDto } from './dto/update-seat.dto';
+
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('Seat')
 @Controller('seat')
 export class SeatController {
   constructor(private readonly seatService: SeatService) {}

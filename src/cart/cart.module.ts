@@ -8,9 +8,10 @@ import { Payment_Method } from '../payment_method/model/payment_method.model';
 import { Delivery_Method } from '../delivery_method/model/delivery_method.model';
 import { Discount_Coupon } from '../discount_coupon/model/discount_coupon.model';
 import { Status } from '../status/model/status.model';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [
+  imports: [JwtModule.register({}),
     SequelizeModule.forFeature([
       Booking,
       Cart,

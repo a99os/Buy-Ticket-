@@ -14,6 +14,9 @@ import { CreateVenuePhotoDto } from './dto/create-venue_photo.dto';
 import { UpdateVenuePhotoDto } from './dto/update-venue_photo.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('Venue_Photo')
 @Controller('venue-photo')
 export class VenuePhotoController {
   constructor(private readonly venuePhotoService: VenuePhotoService) {}

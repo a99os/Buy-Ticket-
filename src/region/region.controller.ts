@@ -10,6 +10,9 @@ import {
 import { RegionService } from './region.service';
 import { CreateRegionDto } from './dto/create-region.dto';
 import { UpdateRegionDto } from './dto/update-region.dto';
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('Region')
 @Controller('region')
 export class RegionController {
   constructor(private readonly regionService: RegionService) {}
@@ -30,7 +33,10 @@ export class RegionController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateRegionDto: UpdateRegionDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateRegionDto: UpdateRegionDto,
+  ) {
     await this.regionService.update(+id, updateRegionDto);
     return this.regionService.findOne(+id);
   }

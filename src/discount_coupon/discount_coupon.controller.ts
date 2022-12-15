@@ -7,13 +7,17 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Discount_CouponService } from './discount_coupon.service';
 import { CreateDiscount_CouponDto } from './dto/create-discount_coupon.dto';
 import { UpdateDiscount_CouponDto } from './dto/update-discount_coupon.dto';
 
+@ApiTags('Discount-Coupon')
 @Controller('discount_coupon')
 export class Discount_CouponController {
-  constructor(private readonly discount_couponService: Discount_CouponService) {}
+  constructor(
+    private readonly discount_couponService: Discount_CouponService,
+  ) {}
 
   @Post()
   create(@Body() createDiscount_CouponDto: CreateDiscount_CouponDto) {
@@ -31,7 +35,10 @@ export class Discount_CouponController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateDiscount_CouponDto: UpdateDiscount_CouponDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateDiscount_CouponDto: UpdateDiscount_CouponDto,
+  ) {
     await this.discount_couponService.update(+id, updateDiscount_CouponDto);
     return this.discount_couponService.findOne(+id);
   }

@@ -10,6 +10,9 @@ import {
 import { HumanCategoryService } from './human-category.service';
 import { CreateHumanCategoryDto } from './dto/create-human-category.dto';
 import { UpdateHumanCategoryDto } from './dto/update-human-category.dto';
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('human_category')
 @Controller('human_category')
 export class HumanCategoryController {
   constructor(private readonly human_categoryService: HumanCategoryService) {}

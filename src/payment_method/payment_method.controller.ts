@@ -10,7 +10,9 @@ import {
 import { Payment_MethodService } from './payment_method.service';
 import { CreatePayment_MethodDto } from './dto/create-payment_method.dto';
 import { UpdatePayment_MethodDto } from './dto/update-payment_method.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Payment_Method')
 @Controller('payment_method')
 export class Payment_MethodController {
   constructor(private readonly payment_methodService: Payment_MethodService) {}
@@ -31,7 +33,10 @@ export class Payment_MethodController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updatePayment_MethodDto: UpdatePayment_MethodDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updatePayment_MethodDto: UpdatePayment_MethodDto,
+  ) {
     await this.payment_methodService.update(+id, updatePayment_MethodDto);
     return this.payment_methodService.findOne(+id);
   }

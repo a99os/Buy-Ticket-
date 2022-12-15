@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   BelongsTo,
   Column,
@@ -24,6 +25,7 @@ interface bookingAttr {
 
 @Table({ tableName: 'booking' })
 export class Booking extends Model<Booking, bookingAttr> {
+  @ApiProperty({ example: 1, description: 'id' })
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -31,24 +33,26 @@ export class Booking extends Model<Booking, bookingAttr> {
     autoIncrement: true,
   })
   id: number;
-
+  @ApiProperty({ example: 1, description: 'card_id' })
   @ForeignKey(() => Cart)
   @Column({
     type: DataType.INTEGER,
   })
   card_id: number;
+  @ApiProperty({ example: '2012-12-12', description: 'finished_date' })
   @Column({
     type: DataType.DATE,
     allowNull: false,
   })
   finished: Date;
-
+  @ApiProperty({ example: 1, description: 'payment_method' })
   @ForeignKey(() => Payment_Method)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
   payment_method_id: number;
+  @ApiProperty({ example: 1, description: 'delivery_method' })
   @ForeignKey(() => Delivery_Method)
   @Column({
     type: DataType.INTEGER,

@@ -6,15 +6,19 @@ import {
   Put,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { BookingService } from './booking.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
-
+import { CustomerGuard } from '../common/guards/customer.guard';
+@ApiTags('Booking')
 @Controller('booking')
 export class BookingController {
   constructor(private readonly bookingService: BookingService) {}
 
+  @UseGuards(CustomerGuard)
   @Post()
   create(@Body() createBookingDto: CreateBookingDto) {
     return this.bookingService.create(createBookingDto);
@@ -29,7 +33,7 @@ export class BookingController {
   findOne(@Param('id') id: string) {
     return this.bookingService.findOne(+id);
   }
-
+  @UseGuards(CustomerGuard)
   @Put(':id')
   async update(
     @Param('id') id: string,

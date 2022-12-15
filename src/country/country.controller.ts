@@ -7,9 +7,11 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CountryService } from './country.service';
 import { CreateCountryDto } from './dto/create-country.dto';
 import { UpdateCountryDto } from './dto/update-country.dto';
+@ApiTags('Country')
 @Controller('country')
 export class CountryController {
   constructor(private readonly countryService: CountryService) {}
@@ -30,7 +32,10 @@ export class CountryController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateCountryDto: UpdateCountryDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateCountryDto: UpdateCountryDto,
+  ) {
     await this.countryService.update(+id, updateCountryDto);
     return this.countryService.findOne(+id);
   }

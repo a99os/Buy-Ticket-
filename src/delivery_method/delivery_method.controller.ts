@@ -7,12 +7,17 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Delivery_MethodService } from './delivery_method.service';
 import { CreateDelivery_MethodDto } from './dto/create-delivery_method.dto';
 import { UpdateDelivery_MethodDto } from './dto/update-delivery_method.dto';
+
+@ApiTags('Delivery-method')
 @Controller('delivery_method')
 export class Delivery_MethodController {
-  constructor(private readonly delivery_methodService: Delivery_MethodService) {}
+  constructor(
+    private readonly delivery_methodService: Delivery_MethodService,
+  ) {}
 
   @Post()
   create(@Body() createDelivery_MethodDto: CreateDelivery_MethodDto) {
@@ -30,7 +35,10 @@ export class Delivery_MethodController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateDelivery_MethodDto: UpdateDelivery_MethodDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateDelivery_MethodDto: UpdateDelivery_MethodDto,
+  ) {
     await this.delivery_methodService.update(+id, updateDelivery_MethodDto);
     return this.delivery_methodService.findOne(+id);
   }

@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { BookingModule } from './booking/booking.module';
 import { CartModule } from './cart/cart.module';
 import { TicketModule } from './ticket/ticket.module';
@@ -130,7 +128,7 @@ import { Country } from './country/model/country.model';
     DistrictModule,
     GenderModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

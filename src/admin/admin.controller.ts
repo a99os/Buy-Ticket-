@@ -9,6 +9,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { cookieGetterAdmin } from '../common/decorator/getAdminRefreshToken.decorator';
 import { CreatorGuard } from '../common/guards/creatorAdmin.guard';
@@ -16,11 +17,15 @@ import { SelfGuard } from '../common/guards/self.guard';
 import { AdminService } from './admin.service';
 import { CreateAdminDto, LoginAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
+import { Admin } from './model/admin.model';
 
+@ApiTags('Admin')
 @Controller('admin')
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
+  @ApiOperation({ summary: 'Admin yaratish' })
+  @ApiResponse({ status: 201, type: Admin })
   @Post('/register')
   register(
     @Body() createAdminDto: CreateAdminDto,
@@ -28,6 +33,8 @@ export class AdminController {
   ) {
     return this.adminService.register(createAdminDto, res);
   }
+  @ApiOperation({ summary: 'Admin yaratish' })
+  @ApiResponse({ status: 201, type: Admin })
   @Post('/login')
   login(
     @Body() loginAdminDto: LoginAdminDto,
@@ -60,6 +67,7 @@ export class AdminController {
   ) {
     return this.adminService.activeDeactivate(+id, res);
   }
+  @UseGuards(CreatorGuard)
   @Post('/status-creator/:id')
   creator(
     @Param('id') id: number,
@@ -68,7 +76,6 @@ export class AdminController {
   ) {
     return this.adminService.creator(+id, res);
   }
-
   @UseGuards(SelfGuard)
   @Put(':id')
   update(
@@ -80,16 +87,17 @@ export class AdminController {
     return this.adminService.update(+id, updateAdminDto, res);
   }
 
+  @UseGuards(CreatorGuard)
   @Get()
   findAll() {
     return this.adminService.getAll();
   }
-
+  @UseGuards(SelfGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.adminService.getOne(+id);
   }
-
+  @UseGuards(SelfGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     const admin = await this.adminService.getOne(+id);

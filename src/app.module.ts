@@ -46,6 +46,16 @@ import { RegionModule } from './region/region.module';
 import { DistrictModule } from './district/district.module';
 import { GenderModule } from './gender/gender.module';
 import { Pipe } from './venue_type/model/pipe.model';
+import { Payment_Method } from './payment_method/model/payment_method.model';
+import { Delivery_Method } from './delivery_method/model/delivery_method.model';
+import { Discount_Coupon } from './discount_coupon/model/discount_coupon.model';
+import { Status } from './status/model/status.model';
+import { Region } from './region/model/region.model';
+import { District } from './district/model/district.model';
+import { Ticket_Type } from './ticket_type/model/ticket_type.model';
+import { Lang } from './lang/model/lang.model';
+import { Gender } from './gender/model/gender.model';
+import { Country } from './country/model/country.model';
 
 @Module({
   imports: [
@@ -78,7 +88,17 @@ import { Pipe } from './venue_type/model/pipe.model';
         Venue,
         Venue_Photo,
         Venue_Type,
-        Pipe
+        Pipe,
+        Payment_Method,
+        Delivery_Method,
+        Discount_Coupon,
+        Status,
+        Region,
+        District,
+        Ticket_Type,
+        Lang,
+        Gender,
+        Country,
       ],
       autoLoadModels: true,
       logging: false,

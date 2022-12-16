@@ -6,18 +6,20 @@ import {
   Put,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { TicketService } from './ticket.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
 import { ApiTags } from '@nestjs/swagger';
-
+import { AdminGuard } from '../common/guards/admin.guard';
 
 @ApiTags('Ticket')
 @Controller('ticket')
 export class TicketController {
   constructor(private readonly ticketService: TicketService) {}
 
+  @UseGuards(AdminGuard)
   @Post()
   create(@Body() createTicketDto: CreateTicketDto) {
     return this.ticketService.create(createTicketDto);
@@ -34,7 +36,10 @@ export class TicketController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateTicketDto: UpdateTicketDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateTicketDto: UpdateTicketDto,
+  ) {
     await this.ticketService.update(+id, updateTicketDto);
     return this.ticketService.findOne(+id);
   }

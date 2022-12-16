@@ -35,7 +35,7 @@ export class AdminGuard implements CanActivate {
     } catch (error) {
       console.log(error);
       throw new UnauthorizedException({
-        message: error.message || 'Unauthorized Admin(admin guard)',
+        message: 'Unauthorized Admin(admin guard)',
       });
     }
   }

@@ -10,8 +10,40 @@ export class CustomerCardService {
     @InjectModel(Customer_Card)
     private customer_cardRepository: typeof Customer_Card,
   ) {}
-  create(createCustomer_CardDto: CreateCustomerCardDto) {
-    return this.customer_cardRepository.create(createCustomer_CardDto);
+  async create(createCustomer_CardDto: CreateCustomerCardDto) {
+    const card = await this.customer_cardRepository.create(
+      createCustomer_CardDto,
+    );
+    if (
+      (
+        await this.customer_cardRepository.findAll({
+          where: { customer_id: card.customer_id },
+        })
+      ).length == 1
+    ) {
+      card.is_main = true;
+      await card.save();
+    }
+    return card;
+  }
+
+  async mainCard(id: number) {
+    await this.customer_cardRepository.update(
+      { is_main: false },
+      { where: { is_main: true } },
+    );
+    await this.customer_cardRepository.update(
+      { is_main: true },
+      { where: { id } },
+    );
+    return await this.findOne(id);
+  }
+
+  async activateDeactivate(id: number) {
+    const card = await this.findOne(id);
+    card.is_active == true ? (card.is_active = false) : (card.is_active = true);
+    card.save();
+    return card;
   }
 
   findAll() {

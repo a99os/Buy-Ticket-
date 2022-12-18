@@ -21,6 +21,14 @@ export class CustomerCardController {
   create(@Body() createCustomer_CardDto: CreateCustomerCardDto) {
     return this.customer_cardService.create(createCustomer_CardDto);
   }
+  @Post('main-card/:id')
+  mainCard(@Param('id') id: number) {
+    return this.customer_cardService.mainCard(id);
+  }
+  @Post('active-card/:id')
+  activeCard(@Param('id') id: number) {
+    return this.customer_cardService.activateDeactivate(id);
+  }
 
   @Get()
   findAll() {
